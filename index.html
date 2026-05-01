@@ -238,18 +238,14 @@ h1.hero{
 .tip .small{color:var(--muted);font-size:11px;margin-top:2px}
 
 /* Footer */
-footer {
-  border-top: 1px solid var(--border);
-  padding: 60px 32px 80px;
-  text-align: center;
-  color: var(--muted);
-  font-size: 13px;
-  margin-top: 0; /* Changed from 20px to 0 */
+footer{
+  border-top:1px solid var(--border);
+  padding:60px 32px 80px;text-align:center;color:var(--muted);font-size:13px;
+  margin-top:0; /* Changed to 0 */
 }
-
-/* Add this rule to remove bottom padding from the LAST section on the page */
+/* This new rule removes the extra space at the very bottom */
 section:last-of-type {
-  padding-bottom: 0;
+  padding-bottom: 20px;
 }
 footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
 footer a:hover{border-bottom-color:var(--accent)}
@@ -316,7 +312,7 @@ footer .cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--d
 <body>
 <nav>
   <a href="https://phagehunter.github.io/rnaviromeatlas" style="text-decoration:none; color:inherit;">
-    <div class="brand"><div class="brand-dot"></div>RNA&nbsp;Virome&nbsp;Atlas</div>
+    <div class="brand"><div class="brand-dot"></div>RNA Virome Atlas</div>
   </a>
   <ul>
     <li><a href="#taxonomy">Taxonomy</a></li>
@@ -421,7 +417,7 @@ footer .cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--d
     </div>
   </section>
 
-  <section id="sources" style="padding-bottom: 0px;"> 
+  <section id="sources"> 
   <div class="section-head reveal">
     <div class="section-eyebrow">06 / Provenance</div>
     <h2>Where the data come from.</h2>
