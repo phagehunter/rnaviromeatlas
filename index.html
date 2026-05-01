@@ -238,10 +238,13 @@ h1.hero{
 .tip .small{color:var(--muted);font-size:11px;margin-top:2px}
 
 /* Footer */
-footer{
-  border-top:1px solid var(--border);
-  padding:60px 32px 80px;text-align:center;color:var(--muted);font-size:13px;
-  margin-top:0; /* Changed to 0 */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 60px 32px 80px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 0px; /* Changed from 80px to 0px */
 }
 /* This new rule removes the extra space at the very bottom */
 section:last-of-type {
@@ -935,7 +938,48 @@ function drawDonut(containerId, data, opts={}){
       .style('fill','var(--muted)').style('font-size','11px').style('font-family',"'JetBrains Mono',monospace").text(fmt(d.v));
   });
 })();
+function renderSources() {
+  // This function builds the charts for the "Where the data come from" section
+  const data = JSON.parse(document.getElementById('data').textContent);
+  
+  // Mapping the IDs in your HTML to the data in your JSON
+  const charts = [
+    { id: 'source-donut', title: 'Sources', data: data.phylum_count },
+    { id: 'gcode-donut', title: 'Genetic Code', data: data.phylum_count }, // Placeholder: uses phylum count since 'sources' is missing in JSON
+    { id: 'afl-bars', title: 'Confidence', data: data.phylum_count }
+  ];
 
+  charts.forEach(conf => {
+    const cont = document.getElementById(conf.id);
+    if (!cont) return;
+    
+    const width = 280, height = 200, margin = 20;
+    const radius = Math.min(width, height) / 2 - margin;
+
+    const svg = d3.select(cont)
+      .append("svg")
+      .attr("width", "100%")
+      .attr("viewBox", `0 0 ${width} ${height}`)
+      .append("g")
+      .attr("transform", `translate(${width / 2},${height / 2})`);
+
+    const color = d3.scaleOrdinal(d3.schemeTableau10);
+    const pie = d3.pie().value(d => d[1]);
+    const arc = d3.arc().innerRadius(radius * 0.5).outerRadius(radius);
+
+    svg.selectAll('path')
+      .data(pie(Object.entries(conf.data).slice(0, 5)))
+      .enter()
+      .append('path')
+      .attr('d', arc)
+      .attr('fill', (d, i) => color(i))
+      .attr('stroke', 'var(--bg)')
+      .style('stroke-width', '2px');
+  });
+}
+
+// Make sure the function actually runs when the page loads
+document.addEventListener('DOMContentLoaded', renderSources);
 </script>
 </body>
 </html>
