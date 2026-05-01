@@ -238,15 +238,23 @@ h1.hero{
 .tip .small{color:var(--muted);font-size:11px;margin-top:2px}
 
 /* Footer */
-footer{
-  border-top:1px solid var(--border);
-  padding:60px 32px 80px;text-align:center;color:var(--muted);font-size:13px;
-  margin-top:20px;
+footer {
+  border-top: 1px solid var(--border);
+  padding: 60px 32px 80px;
+  text-align: center;
+  color: var(--muted);
+  font-size: 13px;
+  margin-top: 0; /* Changed from 20px to 0 */
+}
+
+/* Add this rule to remove bottom padding from the LAST section on the page */
+section:last-of-type {
+  padding-bottom: 0;
 }
 footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
 footer a:hover{border-bottom-color:var(--accent)}
 footer .cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--dim);margin-top:18px}
-
+  
 /* Reveal */
 .reveal{opacity:0;transform:translateY(20px);transition:opacity .9s ease, transform .9s ease}
 .reveal.in{opacity:1;transform:translateY(0)}
@@ -413,7 +421,7 @@ footer .cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--d
     </div>
   </section>
 
-  <section id="sources" style="padding-bottom: 40px;"> 
+  <section id="sources" style="padding-bottom: 0px;"> 
   <div class="section-head reveal">
     <div class="section-eyebrow">06 / Provenance</div>
     <h2>Where the data come from.</h2>
