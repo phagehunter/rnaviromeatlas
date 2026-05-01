@@ -241,7 +241,7 @@ h1.hero{
 footer{
   border-top:1px solid var(--border);
   padding:60px 32px 80px;text-align:center;color:var(--muted);font-size:13px;
-  margin-top:80px;
+  margin-top:20px;
 }
 footer a{color:var(--accent);text-decoration:none;border-bottom:1px solid transparent;transition:border-color .2s}
 footer a:hover{border-bottom-color:var(--accent)}
@@ -307,7 +307,9 @@ footer .cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--d
 </head>
 <body>
 <nav>
-  <div class="brand"><div class="brand-dot"></div>RVMT&nbsp;Atlas</div>
+  <a href="https://phagehunter.github.io/rnaviromeatlas" style="text-decoration:none; color:inherit;">
+    <div class="brand"><div class="brand-dot"></div>RNA&nbsp;Virome&nbsp;Atlas</div>
+  </a>
   <ul>
     <li><a href="#taxonomy">Taxonomy</a></li>
     <li><a href="#hosts">Hosts</a></li>
@@ -411,12 +413,12 @@ footer .cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--d
     </div>
   </section>
 
-  <section id="sources">
-    <div class="section-head reveal">
-      <div class="section-eyebrow">06 / Provenance</div>
-      <h2>Where the data come from.</h2>
-      <p>The bulk of RVMT was mined from JGI's IMG/M assemblies; the rest stitches together targeted virus discoveries and reference databases.</p>
-    </div>
+  <section id="sources" style="padding-bottom: 40px;"> 
+  <div class="section-head reveal">
+    <div class="section-eyebrow">06 / Provenance</div>
+    <h2>Where the data come from.</h2>
+    <p>The bulk of RVMT was mined from JGI's IMG/M assemblies; the rest stitches together targeted virus discoveries and reference databases.</p>
+  </div>
     <div class="grid-3 reveal">
       <div class="card"><h3>Source studies</h3><div class="sub">Origin of each contig.</div><div id="source-donut" class="chart"></div></div>
       <div class="card"><h3>Genetic code</h3><div class="sub">Translation table inferred per contig.</div><div id="gcode-donut" class="chart"></div></div>
