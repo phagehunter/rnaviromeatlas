@@ -328,7 +328,7 @@ footer .cite{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--d
 
 <main>
   <section id="hero">
-    <div class="eyebrow"><span class="pulse"></span>RNA Viruses in Metatranscriptomes · v1.4</div>
+    <div class="eyebrow"><span class="pulse"></span>RNA Viruses in Metatranscriptomes · v0.1</div>
     <h1 class="hero">A cosmos of<br>RNA viruses.</h1>
     <p class="hero-sub">A visualization of 378,253 RNA viruses recovered from 5,150 metatranscriptomes — five and a half times the diversity of any prior catalog. Explore their taxonomy, hosts, functions, and origins.</p>
     <div class="hero-stats">
@@ -939,33 +939,32 @@ function drawDonut(containerId, data, opts={}){
   });
 })();
 function renderSources() {
-  // This function builds the charts for the "Where the data come from" section
   const data = JSON.parse(document.getElementById('data').textContent);
   
-  // Mapping the IDs in your HTML to the data in your JSON
-  const charts = [
+  // These IDs match the "empty" boxes in your 'Sources' section
+  const sourceConfigs = [
     { id: 'source-donut', title: 'Sources', data: data.phylum_count },
-    { id: 'gcode-donut', title: 'Genetic Code', data: data.phylum_count }, // Placeholder: uses phylum count since 'sources' is missing in JSON
+    { id: 'gcode-donut', title: 'Genetic Code', data: data.phylum_count },
     { id: 'afl-bars', title: 'Confidence', data: data.phylum_count }
   ];
 
-  charts.forEach(conf => {
+  sourceConfigs.forEach(conf => {
     const cont = document.getElementById(conf.id);
     if (!cont) return;
     
-    const width = 280, height = 200, margin = 20;
-    const radius = Math.min(width, height) / 2 - margin;
+    // Set a fixed height so the box isn't collapsed or infinitely tall
+    const width = 300, height = 220;
+    const radius = Math.min(width, height) / 2 - 10;
 
     const svg = d3.select(cont)
       .append("svg")
-      .attr("width", "100%")
       .attr("viewBox", `0 0 ${width} ${height}`)
       .append("g")
       .attr("transform", `translate(${width / 2},${height / 2})`);
 
-    const color = d3.scaleOrdinal(d3.schemeTableau10);
+    const color = d3.scaleOrdinal(['#7afcff','#9d8cff','#ff5e9c','#ffd166','#80ffae']);
     const pie = d3.pie().value(d => d[1]);
-    const arc = d3.arc().innerRadius(radius * 0.5).outerRadius(radius);
+    const arc = d3.arc().innerRadius(radius * 0.6).outerRadius(radius);
 
     svg.selectAll('path')
       .data(pie(Object.entries(conf.data).slice(0, 5)))
@@ -978,8 +977,10 @@ function renderSources() {
   });
 }
 
-// Make sure the function actually runs when the page loads
-document.addEventListener('DOMContentLoaded', renderSources);
+// Ensure the page actually triggers this code
+document.addEventListener('DOMContentLoaded', () => {
+  if (typeof renderSources === 'function') renderSources();
+});
 </script>
 </body>
 </html>
