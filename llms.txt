@@ -1,0 +1,31 @@
+# RNA Virome Atlas
+
+> An interactive, one-page atlas of the RNA Viruses in Metatranscriptomes (RVMT) catalog, version 1.4, by Curtis Hoffmann: 378,253 RNA viruses recovered from 5,150 globally distributed metatranscriptomes, about a five-fold expansion of the known RNA virosphere, explored by taxonomy, host, novelty, genome architecture, protein function and provenance.
+
+Site: https://curtishoffmann.com/rnaviromeatlas/
+Source (code and the aggregated data.json): https://github.com/phagehunter/rnaviromeatlas
+
+## Main sections (one page, anchored)
+
+- Taxonomy, a sunburst of phyla, classes, orders and families: https://curtishoffmann.com/rnaviromeatlas/#taxonomy
+- Hosts, host kingdom to viral phylum and the eukaryotic host clades: https://curtishoffmann.com/rnaviromeatlas/#hosts
+- Novelty, novel versus reference viruses and genome segmentation by phylum: https://curtishoffmann.com/rnaviromeatlas/#novelty
+- Functions, the most common HMM protein profiles and families per phylum: https://curtishoffmann.com/rnaviromeatlas/#functions
+- Genome architecture, the three Baltimore classes of RNA genome: https://curtishoffmann.com/rnaviromeatlas/#genome
+- Biology, the five established phyla and the candidate phyla: https://curtishoffmann.com/rnaviromeatlas/#biology
+- Glossary of the recurring viral proteins: https://curtishoffmann.com/rnaviromeatlas/#glossary
+- Sources: https://curtishoffmann.com/rnaviromeatlas/#sources
+
+## Data
+
+- Source: RVMT v1.4, Neri U., Wolf Y.I., Roux S. et al. (2022), "Expansion of the global RNA virome reveals diverse clades of bacteriophages", Cell 185, 4023-4037. Data release: https://doi.org/10.5281/zenodo.6091356
+- The page reads `data.json`, produced by `aggregate.py` from the RVMT tables RiboV1.4_Info.tsv, RiboV1.4_HMMatches.tsv and RiboV1.4_IMG_Scaffold_cart.tsv. Headline figures: 378,253 viruses, 490 families, 4,569 novel genera, 2,121,723 HMM hits, 92.2 percent novel.
+- Phyla: Lenarviricota, Pisuviricota, Kitrinoviricota, Duplornaviricota, Negarnaviricota, plus unclassified contigs and two candidate phyla.
+- Most contigs come from JGI IMG/M assemblies; the rest from Callanan et al. 2020, Wolf et al. 2020, Lauber et al. 2019, the MATOU expedition and RefSeq/GenBank.
+- The visualization is for educational use; the figures are the catalog's, not new analysis.
+
+## License and contact
+
+- Author: Curtis Hoffmann, https://curtishoffmann.com/
+- Contact and issues: https://github.com/phagehunter/rnaviromeatlas/issues
+- Sitemap: https://curtishoffmann.com/rnaviromeatlas/sitemap.xml
