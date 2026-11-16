@@ -1,0 +1,338 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{title}}</title>
+<meta name="description" content="{{description}}">
+<link rel="canonical" href="{{canonical}}">
+<meta name="author" content="Curtis Hoffmann">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#000b18">
+<meta property="og:type" content="website">
+<meta property="og:url" content="{{canonical}}">
+<meta property="og:title" content="{{og_title}}">
+<meta property="og:description" content="{{description}}">
+<meta property="og:image" content="{{canonical}}assets/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{og_image_alt}}">
+<meta property="og:site_name" content="RNA Virome Atlas">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{og_title}}">
+<meta name="twitter:description" content="{{description}}">
+<meta name="twitter:image" content="{{canonical}}assets/og-image.png">
+<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=Outfit:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/styles.css?v={{v}}">
+<script type="application/ld+json">
+{{jsonld}}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to main content</a>
+<nav>
+  <a class="brand" href="./"><svg class="brand-mark" viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false"><path d="M14 6c0 12 20 12 20 24s-20 12-20 24M34 6c0 12-20 12-20 24s20 12 20 24"/><path d="M17 12h14M17 36h14M20 24h8"/></svg>RNA&nbsp;Virome&nbsp;Atlas</a>
+  <ul>
+    <li><a href="#taxonomy">Taxonomy</a></li>
+    <li><a href="#hosts">Hosts</a></li>
+    <li><a href="#novelty">Novelty</a></li>
+    <li><a href="#functions">Functions</a></li>
+    <li><a href="#genome">Genome</a></li>
+    <li><a href="#biology">Biology</a></li>
+    <li><a href="#glossary">Glossary</a></li>
+    <li><a href="#sources">Sources</a></li>
+  </ul>
+</nav>
+
+<main id="main">
+  <noscript>
+    <div class="noscript-note">
+      <p><strong>The charts on this page are drawn with JavaScript.</strong> Without it the headings and the
+        written account still read in order, and the underlying catalogue is open: every figure comes from the
+        RVMT v1.4 release described by <a href="https://doi.org/10.1016/j.cell.2022.08.023" rel="noopener">Neri
+        and colleagues</a>, and the aggregated counts this page draws from are committed to the repository at
+        <code>data/data.json</code>.</p>
+    </div>
+  </noscript>
+  <section id="hero">
+    <div class="eyebrow"><span class="pulse"></span>RNA Viruses in Metatranscriptomes · v1.4</div>
+    <h1 class="hero">A cosmos of<br>RNA viruses.</h1>
+    <p class="hero-sub">A visualization of {{viruses}} RNA viruses in the RVMT v1.4 catalogue, assembled by Neri and
+      colleagues from 5,150 globally distributed metatranscriptomes — a roughly five-fold expansion of the known
+      RNA virosphere. Explore their taxonomy, hosts, genome architecture, functions and origins. Every figure on
+      this page is counted from the catalogue at build time; the count of metatranscriptomes is the one number
+      taken from <a href="https://doi.org/10.1016/j.cell.2022.08.023" rel="noopener">the paper</a>, because the
+      released tables do not carry it.</p>
+    <div class="hero-stats">
+      <div class="stat"><span class="num" data-count="{{viruses_raw}}">{{viruses}}</span><span class="lbl">RNA viruses</span></div>
+      <div class="stat"><span class="num" data-count="{{genera_raw}}">{{genera}}</span><span class="lbl">genera</span></div>
+      <div class="stat"><span class="num" data-count="{{hmm_raw}}">{{hmm}}</span><span class="lbl">protein-profile hits</span></div>
+      <div class="stat"><span class="num" data-count="{{novel_pct_raw}}" data-suffix="%">{{novel_pct}}%</span><span class="lbl">of sequences novel</span></div>
+    </div>
+    <div class="scroll-cue"><span>Begin</span><div class="line"></div></div>
+  </section>
+
+  <section>
+    <div class="about reveal">
+      <div>
+        <div class="section-eyebrow">About the catalog</div>
+        <h2 class="about-lead">RVMT was assembled from 5,150 globally distributed metatranscriptomes, expanding the
+          known RNA virosphere across all five established phyla and adding several proposed new ones.</h2>
+      </div>
+      <div class="pillars">
+        <div class="pillar"><h3>Phyla</h3><p>Five established RNA-virus phyla — Lenar-, Pisu-, Kitrino-, Duplorna- and Negarna-viricota — plus candidate phyla newly proposed from RVMT.</p></div>
+        <div class="pillar"><h3>Hosts</h3><p>RNA bacteriophages dominate microbial communities; eukaryotic viruses span Metazoa, Viridiplantae, Fungi, and microbial eukaryotes.</p></div>
+        <div class="pillar"><h3>Provenance</h3><p>Aggregated from JGI's IMG/M, Callanan et al. 2020, Wolf et al. 2020, Lauber et al. 2019, the MATOU expedition, and RefSeq/GenBank.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="taxonomy">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">01 / Taxonomy</div>
+      <h2>The taxonomic cosmos.</h2>
+      <p>A radial map of the RNA virosphere — phylum at the core, classes, orders and families radiating outward. Click an arc to zoom; click the centre to retreat.</p>
+    </div>
+    <div id="sunburst-wrap" class="reveal">
+      <div class="card" style="padding:32px"><div id="sunburst"></div>
+        {{table_phylum}}</div>
+      <div class="sunburst-info">
+        <div class="breadcrumb" id="sb-crumb">RVMT · all classified taxa</div>
+        <div class="name" id="sb-name">RVMT</div>
+        <div class="level" id="sb-level">root</div>
+        <div class="metric"><span>Viruses</span><span class="v" id="sb-count">—</span></div>
+        <div class="metric"><span>Share of catalog</span><span class="v" id="sb-share">—</span></div>
+        <div class="metric"><span>Children</span><span class="v" id="sb-children">—</span></div>
+        <div class="hint">Hover to inspect · click to zoom</div>
+        <div class="legend" id="phylum-legend"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="hosts">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">02 / Hosts</div>
+      <h2>Who infects what.</h2>
+      <p>Where host evidence is available, RNA viruses partition cleanly between bacterial and eukaryotic lineages. The vast majority remain hosts-unknown — a frontier of inference.</p>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card"><h3>Host kingdom → viral phylum</h3><div class="sub">Sankey diagram of host-of-record against viral phylum.</div><div id="sankey" class="chart"></div>
+        {{table_hosts}}</div>
+      <div class="card"><h3>Eukaryotic host clades</h3><div class="sub">Where the host is eukaryotic, distribution across major lineages.</div><div id="euk-treemap" class="chart"></div>
+        {{table_euk}}</div>
+    </div>
+  </section>
+
+  <section id="novelty">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">03 / Novelty</div>
+      <h2>{{novel_pct}}% are novel.</h2>
+      <p>Each phylum's bar shows how much of its population is newly described in RVMT versus already represented in pre-existing reference databases.</p>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card"><h3>Novel vs reference</h3><div class="sub">Bars summed to total viruses per phylum.</div><div id="novelty-chart" class="chart"></div>
+        {{table_novelty}}</div>
+      <div class="card"><h3>Genome architecture</h3><div class="sub">Segmented vs monopartite genomes per phylum.</div><div id="seg-chart" class="chart"></div>
+        {{table_segmentation}}</div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head reveal">
+      <div class="section-eyebrow">04 / Genome length</div>
+      <h2>Size signatures.</h2>
+      <p>Contig length distribution by phylum on a log scale — a fingerprint of genome architecture, from short Lenarviricota messengers to Pisuviricota polyproteins.</p>
+    </div>
+    <div class="card reveal" style="padding:36px"><div id="length-multiples" class="chart"></div></div>
+  </section>
+
+  <section id="functions">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">05 / Functions</div>
+      <h2>What the proteins do.</h2>
+      <p>Across 2.1 million HMM hits, the Replicase (RdRp) is the universal signature; capsids, helicases, proteases, and movement proteins follow. Bars are colored by phylum composition of each profile's hits.</p>
+    </div>
+    <div class="grid-2 reveal" style="grid-template-columns:1.5fr 1fr">
+      <div class="card"><h3>Top protein profiles</h3><div class="sub">Each row is a curated HMM profile; segments show the phylum origin of its 2.1M hits.</div><div id="profiles"></div></div>
+      <div class="card"><h3>Top families per phylum</h3><div class="sub">Pick a phylum to explore its most populous families.</div><div class="pills" id="fam-pills"></div><div id="fam-bars" class="chart"></div>
+        {{table_families}}</div>
+    </div>
+  </section>
+
+  <section id="sources">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">06 / Provenance</div>
+      <h2>Where the data come from.</h2>
+      <p>The bulk of RVMT was mined from JGI's IMG/M assemblies; the rest stitches together targeted virus discoveries and reference databases.</p>
+    </div>
+    <div class="grid-2 reveal">
+      <div class="card"><h3>Source studies</h3><div class="sub">Origin of each contig — IMG/M dominates the catalog.</div><div id="source-donut" class="chart"></div>
+        {{table_sources}}</div>
+      <div class="card"><h3>Genetic code</h3><div class="sub">Translation table inferred per contig.</div><div id="gcode-donut" class="chart"></div>
+        {{table_gcode}}</div>
+    </div>
+    <div class="card reveal" style="margin-top:24px"><h3>Assignment confidence</h3><div class="sub">Affiliation level (1 = high). Most viruses are confidently placed by sequence-similarity searches.</div><div id="afl-bars" class="chart"></div>
+        {{table_afl}}</div>
+  </section>
+
+  <section id="genome">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">07 / Genome architecture</div>
+      <h2>Three flavors of RNA.</h2>
+      <p>Every RNA virus copies its genome with an RNA-dependent RNA polymerase, but the genome itself comes in three Baltimore classes — positive-sense single-strand, negative-sense single-strand, and double-strand. Each maps to a different evolutionary branch of the virosphere.</p>
+    </div>
+    <div class="baltimore reveal">
+      <div class="bcard" style="--bcolor:#7afcff">
+        <div class="bclass">Class IV · (+)ssRNA</div>
+        <h3>Positive-sense ssRNA</h3>
+        <div class="bdesc">Genome is itself an mRNA — ribosomes can translate it directly upon entry. The largest and most diverse class.</div>
+        <div class="strand"><span>5′</span><div class="helix"></div><span>3′</span></div>
+        <span class="btag">Lenarviricota</span><span class="btag">Pisuviricota</span><span class="btag">Kitrinoviricota</span>
+      </div>
+      <div class="bcard" style="--bcolor:#80ffae">
+        <div class="bclass">Class III · dsRNA</div>
+        <h3>Double-strand RNA</h3>
+        <div class="bdesc">Two complementary strands. Replication and transcription happen inside the capsid to hide dsRNA from host innate immunity.</div>
+        <div class="strand"><span>5′</span><div class="helix dual"><span></span><span></span></div><span>3′</span></div>
+        <span class="btag">Duplornaviricota</span>
+      </div>
+      <div class="bcard" style="--bcolor:#ff7a45">
+        <div class="bclass">Class V · (−)ssRNA</div>
+        <h3>Negative-sense ssRNA</h3>
+        <div class="bdesc">Complement to mRNA — must carry its own polymerase into the cell to be transcribed before translation.</div>
+        <div class="strand"><span>3′</span><div class="helix"></div><span>5′</span></div>
+        <span class="btag">Negarnaviricota</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="biology">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">08 / Biology</div>
+      <h2>Five phyla, five life-styles.</h2>
+      <p>Each phylum has a characteristic genome architecture, host repertoire, and set of signature proteins. Familiar pathogens you may know — and the metatranscriptomic dark matter that surrounds them.</p>
+    </div>
+    <div class="phyla-grid reveal">
+      <article class="pbcard" style="--pcolor:#4cc9f0">
+        <div class="ptag">Class IV · (+)ssRNA</div>
+        <h3>Lenarviricota</h3>
+        <div class="pcount"><b>{{phy_lenar}}</b> viruses · the bacterial RNA virosphere</div>
+        <div class="pmeta">
+          <div class="k">Hosts</div><div class="v">Bacteria, fungi (mitochondrial), some plants</div>
+          <div class="k">Genome</div><div class="v">~3–5 kb, monopartite (+)ssRNA</div>
+          <div class="k">Signature</div><div class="v">Maturation protein, β-sheet coat protein, RdRp</div>
+          <div class="k">Notable</div><div class="v">Leviviridae phages MS2, Qβ; mitoviruses; narnaviruses</div>
+        </div>
+        <div class="pdesc">RVMT massively expanded this phylum — formerly only ~50 species, now <b>tens of thousands</b> of bacterial RNA phages discovered in metatranscriptomes worldwide.</div>
+      </article>
+      <article class="pbcard" style="--pcolor:#ff6b9d">
+        <div class="ptag">Class IV · (+)ssRNA</div>
+        <h3>Pisuviricota</h3>
+        <div class="pcount"><b>{{phy_pisu}}</b> viruses · the polyprotein lineage</div>
+        <div class="pmeta">
+          <div class="k">Hosts</div><div class="v">Animals, plants, fungi, protists</div>
+          <div class="k">Genome</div><div class="v">~7–30 kb, polyprotein expression strategy</div>
+          <div class="k">Signature</div><div class="v">Single jelly-roll capsid (CP_SJR), 3C-like protease, helicase, RdRp</div>
+          <div class="k">Notable</div><div class="v">Picornaviridae (poliovirus, hep A), Caliciviridae (norovirus), Coronaviridae (SARS-CoV-2)</div>
+        </div>
+        <div class="pdesc">Includes the <b>Picornavirales</b> super-order — 81,449 contigs in RVMT — and the <b>Nidovirales</b>, the longest known RNA genomes.</div>
+      </article>
+      <article class="pbcard" style="--pcolor:#ffd166">
+        <div class="ptag">Class IV · (+)ssRNA</div>
+        <h3>Kitrinoviricota</h3>
+        <div class="pcount"><b>74,817</b> viruses · the alpha/flavi-like lineage</div>
+        <div class="pmeta">
+          <div class="k">Hosts</div><div class="v">Animals, plants, arthropod vectors</div>
+          <div class="k">Genome</div><div class="v">~9–13 kb, monopartite or multipartite</div>
+          <div class="k">Signature</div><div class="v">RdRp + helicase + methyltransferase cassette; capping machinery</div>
+          <div class="k">Notable</div><div class="v">Flaviviridae (dengue, Zika, hep C), Togaviridae (chikungunya), Tobamoviruses (TMV)</div>
+        </div>
+        <div class="pdesc">Home to nearly all <b>arboviruses of public-health concern</b> as well as a sprawling diversity of plant viruses.</div>
+      </article>
+      <article class="pbcard" style="--pcolor:#80ffae">
+        <div class="ptag">Class III · dsRNA</div>
+        <h3>Duplornaviricota</h3>
+        <div class="pcount"><b>8,202</b> viruses · the encapsidated replication branch</div>
+        <div class="pmeta">
+          <div class="k">Hosts</div><div class="v">Animals, fungi, plants, protists, bacteria (Cystoviridae)</div>
+          <div class="k">Genome</div><div class="v">dsRNA, often segmented (Reoviridae has 9–12 segments)</div>
+          <div class="k">Signature</div><div class="v">RdRp held inside the capsid; T=1 / T=2 inner shells</div>
+          <div class="k">Notable</div><div class="v">Rotavirus, Reoviridae, Totiviridae yeast viruses, ϕ6 phage</div>
+        </div>
+        <div class="pdesc">dsRNA is a <b>potent immune trigger</b> — these viruses solved the problem by replicating their genomes inside an icosahedral protein cage, never exposing free dsRNA to the cell.</div>
+      </article>
+      <article class="pbcard" style="--pcolor:#ff7a45">
+        <div class="ptag">Class V · (−)ssRNA</div>
+        <h3>Negarnaviricota</h3>
+        <div class="pcount"><b>7,292</b> viruses · the antisense lineage</div>
+        <div class="pmeta">
+          <div class="k">Hosts</div><div class="v">Animals, plants, arthropods, fungi</div>
+          <div class="k">Genome</div><div class="v">(−)ssRNA, segmented or monopartite</div>
+          <div class="k">Signature</div><div class="v">L (large) RdRp protein, nucleocapsid, glycoprotein spikes</div>
+          <div class="k">Notable</div><div class="v">Influenza, Ebola, rabies, measles, hantaviruses, bunyaviruses</div>
+        </div>
+        <div class="pdesc">Unable to be translated directly — every virion must <b>package its own polymerase</b> to make sense-strand mRNA after entry.</div>
+      </article>
+      <article class="pbcard" style="--pcolor:#ada0ff">
+        <div class="ptag">Candidate · proposed</div>
+        <h3>Candidate phyla</h3>
+        <div class="pcount"><b>50,196</b> viruses · the dark matter</div>
+        <div class="pmeta">
+          <div class="k">Lineages</div><div class="v">p.0001/p.0002 sister to Kitrinoviricota; "Unclassified" RdRp clades</div>
+          <div class="k">Genome</div><div class="v">Mostly (+)ssRNA, novel architectures</div>
+          <div class="k">Signature</div><div class="v">RdRp homologs that fall outside all five established phyla</div>
+        </div>
+        <div class="pdesc">RVMT proposed <b>five new candidate phyla</b> — Taraviricota, Pomiviricota, Paraxenoviricota, Wamoviricota, Arctiviricota — extending the global RNA phylogeny.</div>
+      </article>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head reveal">
+      <div class="section-eyebrow">09 / Protein clans</div>
+      <h2>The most abundant ancient folds.</h2>
+      <p>Profile clans group HMMs that share a common ancestral fold. The dominance of just a handful of clans across millions of viral ORFs reveals how deeply conserved the RNA-virus protein toolkit really is.</p>
+    </div>
+    <div class="card reveal" style="padding:32px"><div id="clans-chart" class="chart"></div>
+        {{table_clans}}</div>
+  </section>
+
+  <section id="glossary">
+    <div class="section-head reveal">
+      <div class="section-eyebrow">10 / Glossary</div>
+      <h2>The viral protein toolkit.</h2>
+      <p>A short field guide to the recurring HMM profiles in this catalog — what each protein does and why it matters.</p>
+    </div>
+    <div class="glossary reveal">
+      <div class="gitem"><div class="gname">RdRp</div><div class="gtitle">RNA-dependent RNA polymerase</div><div class="gtext">The defining enzyme of every RNA virus — copies RNA from an RNA template. Its right-hand fold is one of the oldest enzymatic structures known and serves as the universal phylogenetic marker for the virosphere.</div></div>
+      <div class="gitem"><div class="gname">CP_SJR</div><div class="gtitle">Single jelly-roll capsid</div><div class="gtext">An eight-stranded β-barrel that builds icosahedral viral shells. The most ancient and most reused capsid fold, found across Pisuviricota, Kitrinoviricota and beyond.</div></div>
+      <div class="gitem"><div class="gname">CP_Levi</div><div class="gtitle">Leviviridae coat protein</div><div class="gtext">A unique β-sheet coat fold found only in (+)ssRNA bacteriophages. Self-assembles into T=3 icosahedral shells around a single genome copy.</div></div>
+      <div class="gitem"><div class="gname">Maturation_Levi</div><div class="gtitle">Phage maturation protein</div><div class="gtext">A single-copy structural protein that lets RNA phages adsorb to the F-pilus of bacteria. Without it, the phage can package but cannot infect.</div></div>
+      <div class="gitem"><div class="gname">Helicase</div><div class="gtitle">SF1/SF2/SF3 helicase</div><div class="gtext">An ATP-driven motor that unwinds duplex or structured RNA so the polymerase can advance. Common in Pisu- and Kitrino-viricota replication modules.</div></div>
+      <div class="gitem"><div class="gname">3CL_pro</div><div class="gtitle">3C-like protease</div><div class="gtext">A chymotrypsin-fold protease that cleaves the long viral polyprotein into mature subunits — a major drug target (e.g., paxlovid against SARS-CoV-2).</div></div>
+      <div class="gitem"><div class="gname">L_protein</div><div class="gtitle">Large polymerase complex</div><div class="gtext">In (−)ssRNA viruses, a multidomain enzyme combining the RdRp with capping, methyltransferase and polyadenylation activities — a one-stop transcription machine.</div></div>
+      <div class="gitem"><div class="gname">MTase</div><div class="gtitle">Methyltransferase</div><div class="gtext">Caps the 5′ end of viral mRNA so it mimics a host transcript and escapes innate-immune sensors. Often fused to the RdRp in (+)ssRNA viruses.</div></div>
+      <div class="gitem"><div class="gname">Glycoprotein</div><div class="gtitle">Envelope spike</div><div class="gtext">A membrane-anchored protein that binds host receptors and fuses the viral envelope with cellular membranes — the receptor-recognition handshake.</div></div>
+    </div>
+  </section>
+
+  <footer>
+    <div><a href="https://curtishoffmann.com/rnaviromeatlas/">RNA Virome Atlas</a> · A visualization of RNA Viruses in Metatranscriptomes (RVMT) v1.4</div>
+    <div class="cite">Neri, U., Wolf, Y.I., Roux, S., et al. (2022). <em>Cell</em> 185, 4023–4037 · doi:10.5281/zenodo.6091356</div>
+    <div class="cite">Data: HMMatches.tsv · IMG_Scaffold_cart.tsv · Info.tsv — visualization for educational use only</div>
+    <div class="cite">Made by <a href="https://curtishoffmann.com/">Curtis Hoffmann</a> · <a href="https://github.com/phagehunter/rnaviromeatlas">Source on GitHub</a></div>
+  </footer>
+</main>
+
+<div class="tip" id="tip"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12"></script>
+{{DATA}}
+{{SCRIPT}}
+</body>
+</html>

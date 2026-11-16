@@ -1,0 +1,42 @@
+MIT License
+
+Copyright (c) 2026 Curtis Hoffmann
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+The MIT license above covers the code in this repository: aggregate.py,
+build.py, src/template.html, assets/styles.css and assets/app.js.
+
+It does not cover the underlying catalogue. Every figure on this site is
+derived from:
+
+  RVMT (RNA Virus MetaTranscriptomes), release RiboV1.4, February 2022.
+  Neri U, Wolf YI, Roux S, et al. Expansion of the global RNA virome reveals
+  diverse clades of bacteriophages. Cell. 2022;185(21):4023-4037.
+  https://doi.org/10.1016/j.cell.2022.08.023
+
+That release is the work of its authors and its terms are set by the release,
+not by this repository. No RVMT table is redistributed here: the three source
+files total about 620 MB and stay outside the repository, and aggregate.py
+reads them to produce data/data.json, which holds counts and summary
+statistics only, no sequences and no per-contig records.
+
+Anyone reusing the figures should cite Neri et al. rather than this site.

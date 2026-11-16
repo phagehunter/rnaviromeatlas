@@ -1,13 +1,39 @@
 #!/usr/bin/env python3
 """Aggregate RVMT TSVs into a compact JSON for the index.html visualization."""
-import csv, json, math, sys
+import csv, json, math, os, sys
 from collections import defaultdict, Counter
+from pathlib import Path
 
 csv.field_size_limit(sys.maxsize)
 
-INFO  = "RiboV1.4_Info.tsv"
-HMM   = "RiboV1.4_HMMatches.tsv"
-IMG   = "RiboV1.4_IMG_Scaffold_cart.tsv"
+ROOT = Path(__file__).resolve().parent
+
+# The three RVMT tables this reads total about 620 MB, so they are not committed.
+# Download them from the RVMT v1.4 release and point RVMT_DIR at the folder:
+#
+#   Neri U, Wolf YI, Roux S, et al. Expansion of the global RNA virome reveals
+#   diverse clades of bacteriophages. Cell. 2022;185(21):4023-4037.
+#   https://doi.org/10.1016/j.cell.2022.08.023
+#   Data: https://riboviria.org  (RiboV1.4 release, February 2022)
+#
+#   export RVMT_DIR=/path/to/RiboV1.4
+#   python3 aggregate.py
+#
+# Defaults to ./rvmt next to this script. See README.md for the file list and
+# the checksums of the release this build was run against.
+RVMT_DIR = Path(os.environ.get("RVMT_DIR", ROOT / "rvmt")).expanduser()
+
+INFO  = RVMT_DIR / "RiboV1.4_Info.tsv"
+HMM   = RVMT_DIR / "RiboV1.4_HMMatches.tsv"
+IMG   = RVMT_DIR / "RiboV1.4_IMG_Scaffold_cart.tsv"
+
+for _p in (INFO, HMM, IMG):
+    if not _p.exists():
+        sys.exit(
+            f"missing RVMT input:\n  {_p}\n"
+            "Set RVMT_DIR to the folder holding the RiboV1.4 release, or place the\n"
+            "files at the path above. See README.md for where to download them."
+        )
 
 def safe_int(x):
     try: return int(x)
@@ -25,6 +51,7 @@ source_ct    = Counter()
 length_by_phy = defaultdict(list)
 top_families = Counter()
 genus_by_fam = defaultdict(Counter)
+novel_by_genus = defaultdict(Counter)
 genetic_code_ct = Counter()
 afflvl_ct = Counter()
 
@@ -46,7 +73,12 @@ with open(INFO, newline="") as f:
         family  = row[19] or "Unclassified"
         genus   = row[20] or "Unclassified"
         novel   = row[21]
-        source  = row[22] or "Unknown"
+        # Column 23 (row[22]) is "Source": the per-sample accession, 12,813 distinct
+        # values, which answers "which run did this contig come from". Column 24
+        # (row[23]) is "Set": the study of record, six values, which is what the
+        # provenance chart on the page is about. An earlier version of this script
+        # read the wrong one, and the committed data.json still carried that output.
+        source  = row[23] or "Unknown"
         gcode   = row[6] or "NA"
         afl     = (row[11] or "NA").split(" - ")[0]
 
@@ -77,6 +109,7 @@ with open(INFO, newline="") as f:
         if length > 0: length_by_phy[phylum].append(length)
         top_families[(phylum, family)] += 1
         genus_by_fam[family][genus] += 1
+        novel_by_genus[genus][novel] += 1
         genetic_code_ct[gcode] += 1
         afflvl_ct[afl] += 1
 
@@ -182,7 +215,13 @@ out = {
         "viruses": sum(phylum_ct.values()),
         "phyla": len([p for p in phylum_ct if not p.startswith("p.")]),
         "families": sum(1 for k in {(p,f) for (p,f) in top_families}),
+        # Every genus label in RiboV1.4_Info.tsv is a real genus: the file carries
+        # no "Unclassified" genus rows. "Novel genera" means something narrower --
+        # a genus in which every member sequence is flagged novel -- so the two
+        # figures are reported separately rather than conflated.
         "genera": len({g for f in genus_by_fam for g in genus_by_fam[f]}),
+        "novel_genera": sum(1 for g, c in novel_by_genus.items() if set(c) == {"TRUE"}),
+        "novel_sequences": sum(novel_by_phy[p]["TRUE"] for p in novel_by_phy),
         "hmm_hits": hmm_total,
         "img_scaffolds": img_total,
         "novel_pct": round(100 * sum(novel_by_phy[p]["TRUE"] for p in novel_by_phy) / max(1, sum(phylum_ct.values())), 1),
@@ -205,6 +244,29 @@ out = {
     "afflvl": dict(afflvl_ct),
 }
 
-with open("data.json", "w") as f:
-    json.dump(out, f, separators=(",",":"))
-print(f"Wrote data.json ({sum(1 for _ in open('data.json'))} lines)", file=sys.stderr)
+import datetime, hashlib
+
+def _md5(path, limit=None):
+    h = hashlib.md5()
+    with open(path, "rb") as fh:
+        for chunk in iter(lambda: fh.read(1 << 20), b""):
+            h.update(chunk)
+    return h.hexdigest()
+
+out["provenance"] = {
+    "dataset": "RVMT (RNA Virus MetaTranscriptomes), release RiboV1.4, February 2022",
+    "paper": ("Neri U, Wolf YI, Roux S, et al. Expansion of the global RNA virome reveals "
+              "diverse clades of bacteriophages. Cell. 2022;185(21):4023-4037. "
+              "doi:10.1016/j.cell.2022.08.023"),
+    "source_dir": str(RVMT_DIR),
+    "aggregated": datetime.date.today().isoformat(),
+    "inputs": {p.name: {"bytes": p.stat().st_size, "md5": _md5(p)} for p in (INFO, HMM, IMG)},
+}
+
+DEST = ROOT / "data" / "data.json"
+DEST.parent.mkdir(exist_ok=True)
+with open(DEST, "w") as f:
+    json.dump(out, f, separators=(",", ":"))
+print(f"Wrote {DEST} ({DEST.stat().st_size/1e3:.0f} KB)", file=sys.stderr)
+for k, v in out["totals"].items():
+    print(f"  {k:18} {v:,}" if isinstance(v, int) else f"  {k:18} {v}", file=sys.stderr)
