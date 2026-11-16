@@ -60,11 +60,12 @@
   </noscript>
   <section id="hero">
     <div class="eyebrow"><span class="pulse"></span>RNA Viruses in Metatranscriptomes · v1.4</div>
-    <h1 class="hero">A cosmos of<br>RNA viruses.</h1>
-    <p class="hero-sub">A visualization of {{viruses}} RNA viruses in the RVMT v1.4 catalogue, assembled by Neri and
-      colleagues from 5,150 globally distributed metatranscriptomes — a roughly five-fold expansion of the known
-      RNA virosphere. Explore their taxonomy, hosts, genome architecture, functions and origins. Every figure on
-      this page is counted from the catalogue at build time; the count of metatranscriptomes is the one number
+    <h1 class="hero">{{viruses}} RNA viruses<br>from 5,150 metatranscriptomes.</h1>
+    <p class="hero-sub">This page visualizes the {{viruses}} RNA viruses in the RVMT v1.4 catalog, which Neri and
+      colleagues assembled from 5,150 globally distributed metatranscriptomes and which expanded the known RNA
+      virosphere roughly five-fold. The sections below cover the catalog's taxonomy, hosts, novelty, genome
+      architecture, protein functions and source studies. Every figure on
+      this page is counted from the catalog at build time; the count of metatranscriptomes is the one number
       taken from <a href="https://doi.org/10.1016/j.cell.2022.08.023" rel="noopener">the paper</a>, because the
       released tables do not carry it.</p>
     <div class="hero-stats">
@@ -94,8 +95,8 @@
   <section id="taxonomy">
     <div class="section-head reveal">
       <div class="section-eyebrow">01 / Taxonomy</div>
-      <h2>The taxonomic cosmos.</h2>
-      <p>A radial map of the RNA virosphere — phylum at the core, classes, orders and families radiating outward. Click an arc to zoom; click the centre to retreat.</p>
+      <h2>Taxonomy, from phylum to family.</h2>
+      <p>This sunburst chart places phylum at the center, with class, order and family in successive rings. Click an arc to zoom into that taxon, and click the center to zoom back out.</p>
     </div>
     <div id="sunburst-wrap" class="reveal">
       <div class="card" style="padding:32px"><div id="sunburst"></div>
@@ -116,8 +117,8 @@
   <section id="hosts">
     <div class="section-head reveal">
       <div class="section-eyebrow">02 / Hosts</div>
-      <h2>Who infects what.</h2>
-      <p>Where host evidence is available, RNA viruses partition cleanly between bacterial and eukaryotic lineages. The vast majority remain hosts-unknown — a frontier of inference.</p>
+      <h2>Hosts of record.</h2>
+      <p>Where a host is recorded, the viruses divide cleanly between bacterial and eukaryotic lineages. Most sequences, however, have no host of record.</p>
     </div>
     <div class="grid-2 reveal">
       <div class="card"><h3>Host kingdom → viral phylum</h3><div class="sub">Sankey diagram of host-of-record against viral phylum.</div><div id="sankey" class="chart"></div>
@@ -182,7 +183,7 @@
   <section id="genome">
     <div class="section-head reveal">
       <div class="section-eyebrow">07 / Genome architecture</div>
-      <h2>Three flavors of RNA.</h2>
+      <h2>Three Baltimore classes.</h2>
       <p>Every RNA virus copies its genome with an RNA-dependent RNA polymerase, but the genome itself comes in three Baltimore classes — positive-sense single-strand, negative-sense single-strand, and double-strand. Each maps to a different evolutionary branch of the virosphere.</p>
     </div>
     <div class="baltimore reveal">
@@ -213,8 +214,8 @@
   <section id="biology">
     <div class="section-head reveal">
       <div class="section-eyebrow">08 / Biology</div>
-      <h2>Five phyla, five life-styles.</h2>
-      <p>Each phylum has a characteristic genome architecture, host repertoire, and set of signature proteins. Familiar pathogens you may know — and the metatranscriptomic dark matter that surrounds them.</p>
+      <h2>The five established phyla, and the candidates.</h2>
+      <p>Each phylum has a characteristic genome architecture, host range and set of signature proteins. Each card lists well-known pathogens in the phylum alongside the uncharacterized sequences that metatranscriptomic surveys have added to it.</p>
     </div>
     <div class="phyla-grid reveal">
       <article class="pbcard" style="--pcolor:#4cc9f0">
@@ -227,7 +228,7 @@
           <div class="k">Signature</div><div class="v">Maturation protein, β-sheet coat protein, RdRp</div>
           <div class="k">Notable</div><div class="v">Leviviridae phages MS2, Qβ; mitoviruses; narnaviruses</div>
         </div>
-        <div class="pdesc">RVMT massively expanded this phylum — formerly only ~50 species, now <b>tens of thousands</b> of bacterial RNA phages discovered in metatranscriptomes worldwide.</div>
+        <div class="pdesc">RVMT expanded this phylum from about 50 previously known species to <b>tens of thousands</b> of bacterial RNA phages, found in metatranscriptomes from around the world.</div>
       </article>
       <article class="pbcard" style="--pcolor:#ff6b9d">
         <div class="ptag">Class IV · (+)ssRNA</div>
@@ -251,7 +252,7 @@
           <div class="k">Signature</div><div class="v">RdRp + helicase + methyltransferase cassette; capping machinery</div>
           <div class="k">Notable</div><div class="v">Flaviviridae (dengue, Zika, hep C), Togaviridae (chikungunya), Tobamoviruses (TMV)</div>
         </div>
-        <div class="pdesc">Home to nearly all <b>arboviruses of public-health concern</b> as well as a sprawling diversity of plant viruses.</div>
+        <div class="pdesc">Includes nearly all <b>arboviruses of public-health concern</b> and a large number of plant viruses.</div>
       </article>
       <article class="pbcard" style="--pcolor:#80ffae">
         <div class="ptag">Class III · dsRNA</div>
@@ -263,7 +264,7 @@
           <div class="k">Signature</div><div class="v">RdRp held inside the capsid; T=1 / T=2 inner shells</div>
           <div class="k">Notable</div><div class="v">Rotavirus, Reoviridae, Totiviridae yeast viruses, ϕ6 phage</div>
         </div>
-        <div class="pdesc">dsRNA is a <b>potent immune trigger</b> — these viruses solved the problem by replicating their genomes inside an icosahedral protein cage, never exposing free dsRNA to the cell.</div>
+        <div class="pdesc">Because free dsRNA is a <b>potent immune trigger</b>, these viruses replicate their genomes inside an icosahedral protein shell and do not expose dsRNA to the cell.</div>
       </article>
       <article class="pbcard" style="--pcolor:#ff7a45">
         <div class="ptag">Class V · (−)ssRNA</div>
@@ -280,7 +281,7 @@
       <article class="pbcard" style="--pcolor:#ada0ff">
         <div class="ptag">Candidate · proposed</div>
         <h3>Candidate phyla</h3>
-        <div class="pcount"><b>50,196</b> viruses · the dark matter</div>
+        <div class="pcount"><b>50,196</b> viruses · outside the established phyla</div>
         <div class="pmeta">
           <div class="k">Lineages</div><div class="v">p.0001/p.0002 sister to Kitrinoviricota; "Unclassified" RdRp clades</div>
           <div class="k">Genome</div><div class="v">Mostly (+)ssRNA, novel architectures</div>
@@ -295,7 +296,7 @@
     <div class="section-head reveal">
       <div class="section-eyebrow">09 / Protein clans</div>
       <h2>The most abundant ancient folds.</h2>
-      <p>Profile clans group HMMs that share a common ancestral fold. The dominance of just a handful of clans across millions of viral ORFs reveals how deeply conserved the RNA-virus protein toolkit really is.</p>
+      <p>Profile clans group HMMs that share a common ancestral fold. A handful of clans account for most hits across millions of viral ORFs, which shows how strongly the core RNA-virus proteins are conserved.</p>
     </div>
     <div class="card reveal" style="padding:32px"><div id="clans-chart" class="chart"></div>
         {{table_clans}}</div>
@@ -305,7 +306,7 @@
     <div class="section-head reveal">
       <div class="section-eyebrow">10 / Glossary</div>
       <h2>The viral protein toolkit.</h2>
-      <p>A short field guide to the recurring HMM profiles in this catalog — what each protein does and why it matters.</p>
+      <p>Short definitions of the HMM profiles that recur most often in this catalog, with the function of each protein.</p>
     </div>
     <div class="glossary reveal">
       <div class="gitem"><div class="gname">RdRp</div><div class="gtitle">RNA-dependent RNA polymerase</div><div class="gtext">The defining enzyme of every RNA virus — copies RNA from an RNA template. Its right-hand fold is one of the oldest enzymatic structures known and serves as the universal phylogenetic marker for the virosphere.</div></div>
@@ -314,9 +315,9 @@
       <div class="gitem"><div class="gname">Maturation_Levi</div><div class="gtitle">Phage maturation protein</div><div class="gtext">A single-copy structural protein that lets RNA phages adsorb to the F-pilus of bacteria. Without it, the phage can package but cannot infect.</div></div>
       <div class="gitem"><div class="gname">Helicase</div><div class="gtitle">SF1/SF2/SF3 helicase</div><div class="gtext">An ATP-driven motor that unwinds duplex or structured RNA so the polymerase can advance. Common in Pisu- and Kitrino-viricota replication modules.</div></div>
       <div class="gitem"><div class="gname">3CL_pro</div><div class="gtitle">3C-like protease</div><div class="gtext">A chymotrypsin-fold protease that cleaves the long viral polyprotein into mature subunits — a major drug target (e.g., paxlovid against SARS-CoV-2).</div></div>
-      <div class="gitem"><div class="gname">L_protein</div><div class="gtitle">Large polymerase complex</div><div class="gtext">In (−)ssRNA viruses, a multidomain enzyme combining the RdRp with capping, methyltransferase and polyadenylation activities — a one-stop transcription machine.</div></div>
+      <div class="gitem"><div class="gname">L_protein</div><div class="gtitle">Large polymerase complex</div><div class="gtext">In (−)ssRNA viruses, a multidomain enzyme that combines the RdRp with capping, methyltransferase and polyadenylation activities, so a single protein carries out transcription.</div></div>
       <div class="gitem"><div class="gname">MTase</div><div class="gtitle">Methyltransferase</div><div class="gtext">Caps the 5′ end of viral mRNA so it mimics a host transcript and escapes innate-immune sensors. Often fused to the RdRp in (+)ssRNA viruses.</div></div>
-      <div class="gitem"><div class="gname">Glycoprotein</div><div class="gtitle">Envelope spike</div><div class="gtext">A membrane-anchored protein that binds host receptors and fuses the viral envelope with cellular membranes — the receptor-recognition handshake.</div></div>
+      <div class="gitem"><div class="gname">Glycoprotein</div><div class="gtitle">Envelope spike</div><div class="gtext">A membrane-anchored protein that binds host receptors and fuses the viral envelope with cellular membranes.</div></div>
     </div>
   </section>
 
