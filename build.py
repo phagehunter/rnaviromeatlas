@@ -54,6 +54,16 @@ def n(v):
     return f"{v:,}" if isinstance(v, int) else str(v)
 
 
+def script_json(text):
+    """Make serialized JSON safe to place inside a <script> element.
+
+    The HTML parser ends a script element at the first "</script", wherever it falls, so a
+    string value holding "</" could close the block early and have the rest read as markup.
+    "<\\/" is the same string to a JSON parser and is inert to the HTML parser.
+    """
+    return text.replace("</", "<\\/")
+
+
 def fill(template, mapping):
     def sub(m):
         key = m.group(1)
@@ -242,7 +252,7 @@ def render(d):
         "og_image_alt": e(f'RNA Virome Atlas: {n(tot["viruses"])} RNA virus sequences from '
                           f'{METATRANSCRIPTOMES} metatranscriptomes'),
         "canonical": SITE_URL,
-        "jsonld": jsonld(d, description),
+        "jsonld": script_json(jsonld(d, description)),
         "v": (d.get("provenance", {}).get("aggregated") or
               datetime.date.today().isoformat()).replace("-", ""),
         "viruses": n(tot["viruses"]), "viruses_raw": str(tot["viruses"]),
@@ -252,7 +262,7 @@ def render(d):
         "phy_lenar": n(phy["Lenarviricota"]),
         "phy_pisu": n(phy["Pisuviricota"]),
         "DATA": ('<script id="data" type="application/json">'
-                 + json.dumps(d, separators=(",", ":")) + "</script>"),
+                 + script_json(json.dumps(d, separators=(",", ":"))) + "</script>"),
         "SCRIPT": ('<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js" '
                    'integrity="sha512-vc58qvvBdrDR4etbxMdlTt4GBQk1qjvyORR2nrsPsFPyrs+/u5c3+1Ct6upOgdZoIl7eq6k3a1UPDSNAQi/32A==" '
                    'crossorigin="anonymous" referrerpolicy="no-referrer"></script>\n'
